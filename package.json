@@ -4,7 +4,9 @@
   "description": "A server application which fetches data from excel sheet and sends birthday wishes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"nodemon index"
+
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,8 @@
   },
   "homepage": "https://github.com/kshavv/birthday_messages#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "xlsx": "^0.18.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
