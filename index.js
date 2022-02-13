@@ -2,6 +2,7 @@ const express =require("express");
 const app=express();
 
 const readExcel=require("./functions/readExcel");
+const sendMail=require("./functions/sendEmail");
 
 
 //setting up the express server
@@ -15,3 +16,4 @@ app.listen(PORT,()=>{
 //calling function for reading excel
 readExcel("./data/book.xlsx");
 
+sendMail();
