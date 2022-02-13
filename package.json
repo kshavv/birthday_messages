@@ -1,0 +1,25 @@
+{
+  "name": "birthday_messages",
+  "version": "1.0.0",
+  "description": "A server application which fetches data from excel sheet and sends birthday wishes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kshavv/birthday_messages.git"
+  },
+  "author": "ksav,mandeep",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kshavv/birthday_messages/issues"
+  },
+  "homepage": "https://github.com/kshavv/birthday_messages#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
