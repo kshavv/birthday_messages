@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A server application which fetches data from excel sheet and sends birthday wishes",
   "main": "index.js",
+  "nodemonConfig":{ "ext": "js", "ignore": ["*.test.ts", "db/*","data/jsonData/*"], "delay": "2" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index"
