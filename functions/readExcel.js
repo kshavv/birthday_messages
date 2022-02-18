@@ -20,10 +20,7 @@ module.exports= readExcel=async (address)=>{
             data[i].sheetData.push(res);
         })
 
-        // console.log(data);
-
     }
-
     saveToFile(data);
 }
 
@@ -40,10 +37,7 @@ const saveToFile= async (data)=>{
             
         })   
     })
-    
-
 }
-
 
 
 /**
@@ -56,6 +50,5 @@ const correct_formatting=(sheetName)=>{
     comp.forEach(item=>{
         correctName+=item;
     })
-
     return correctName;
 }
