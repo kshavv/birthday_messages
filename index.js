@@ -6,6 +6,7 @@ const sendMail=require("./functions/sendEmail");
 const getTodaysList=require("./functions/getBirthdayList")
 
 const schedule = require('node-schedule');
+const sendEmail=require('./functions/sendEmail');
 
 
 
@@ -22,7 +23,10 @@ app.listen(PORT,()=>{
 
 
 //run the script //   0 10 * * *
-const job = schedule.scheduleJob('*/10 * * * * *', function(){
+const job = schedule.scheduleJob('*/10 * * * * *', async function(){
         const list=getTodaysList();
-        console.log(list);
+        console.log("starting...");
+        await sendEmail(list[0]["Student Name"],"keshavrawat999.kr@gmail.com")
+        console.log("Done!!");
+
     });
