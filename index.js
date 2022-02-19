@@ -25,4 +25,4 @@ app.listen(PORT,()=>{
 const job = schedule.scheduleJob('*/10 * * * * *', function(){
         const list=getTodaysList();
         console.log(list);
-  });
+    });
