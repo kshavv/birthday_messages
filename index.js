@@ -3,6 +3,11 @@ const app=express();
 
 const readExcel=require("./functions/readExcel");
 const sendMail=require("./functions/sendEmail");
+const getTodaysList=require("./functions/getBirthdayList")
+
+const schedule = require('node-schedule');
+
+
 
 
 //setting up the express server
@@ -12,8 +17,12 @@ app.listen(PORT,()=>{
 });
 
 
-
 //calling function for reading excel
-readExcel("./data/book.xlsx");
+// readExcel("./data/book.xlsx");
 
-// sendMail();
+
+//run the script //   0 10 * * *
+const job = schedule.scheduleJob('*/10 * * * * *', function(){
+        const list=getTodaysList();
+        console.log(list);
+  });
