@@ -28,5 +28,4 @@ const job = schedule.scheduleJob('*/10 * * * * *', async function(){
         console.log("starting...");
         await sendEmail(list[0]["Student Name"],"keshavrawat999.kr@gmail.com")
         console.log("Done!!");
-
-    });
+});

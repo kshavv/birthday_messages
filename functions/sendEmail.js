@@ -1,6 +1,5 @@
 const nodemailer =require('nodemailer');
-const config=require("config");
-
+const config=require('config');
 let testAccount;
 const newTestAccount=async ()=>{
     testAccount=await nodemailer.createTestAccount();
@@ -14,8 +13,8 @@ let transporter = nodemailer.createTransport({
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: config.get('mailID'), // generated ethereal user
-      pass: config.get('mailPass'), // generated ethereal password
+      user: config.get("mailID"), // generated ethereal user
+      pass: config.get("mailPass"), // generated ethereal password
     },
 });
 
@@ -24,7 +23,7 @@ let transporter = nodemailer.createTransport({
 const sendEmail= async (name,email)=>{
 
     let info = await transporter.sendMail({
-        from: '"Mandeep Daksh" <mandeep845960@outlook.com>', // sender address
+        from: '"ksav" ksav321@outlook.com', // sender address
         to: email, // list of receivers
         subject: "Birthday greetings", // Subject line
         html:`<div class="es-wrapper-color">
