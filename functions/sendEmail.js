@@ -1,38 +1,78 @@
-// let config=require("config");
-// const mailer=require("nodemailer");
+const nodemailer =require('nodemailer');
+const config=require('config');
 
-// const mail="keshavrawat999.kr@gmail.com";
-// const pass=config.get("emailPass");
+const ejs=require('ejs');
+const fs = require('fs');
 
-
-
-// var transporter = mailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: mail,
-//       pass: pass
-//     }
-//   });
-
-//   var mailOptions = {
-//     from: mail,
-//     to: 'ksavr99@gmail.com',
-//     subject: 'Sending Email using Node.js',
-//     text: 'That was easy!'
-//   };
+/**
+ * testing feature
+ */
+let testAccount;
+const newTestAccount=async ()=>{
+    testAccount=await nodemailer.createTestAccount();
+}
+ 
+newTestAccount();
 
 
+let transporter = nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: config.get("mailID"), // generated ethereal user
+      pass: config.get("mailPass"), // generated ethereal password
+    },
+});
 
 
-
-//   module.exports=sendEMail=()=>{
-
-//     transporter.sendMail(mailOptions, function(error, info){
-//         if (error) {
-//           console.log(error);
-//         } else {
-//           console.log('Email sent: ' + info.response);
+// const sendEmail=async(name,batch,email)=>{
+    
+//     let randomNumber;
+//     fs.readdir('./views',async(err, files) => {
+//         if(err){
+//             console.log(err);
 //         }
-//       });
+//         randomNumber= Math.floor((Math.random() * files.length)+1);
+//         const data= await ejs.renderFile(require('path').resolve(__dirname, '../views')+`\\template${randomNumber}.ejs`, { name:name,batch:batch });
 
-//   }
+//         let info = await transporter.sendMail({
+//             from: '"ksav" ksav321@outlook.com', // sender address
+//             to: email, // list of receivers
+//             subject: "Birthday greetings", // Subject line
+//             html:data
+//           });
+
+//         console.log(info.messageId)
+
+//     });
+
+// }
+
+
+const sendEmail = async (name, batch, email) => {
+    let files = fs.readdirSync("./views");
+    let randomNumber = Math.floor(Math.random() * files.length + 1);
+    console.log(randomNumber);
+    const data = await ejs.renderFile(
+      require("path").resolve(__dirname, "../views") +
+        `\\template${randomNumber}.ejs`,
+      { name: name, batch: batch }
+    );
+  
+    await transporter
+      .sendMail({
+        from: '"ksav" ksav321@outlook.com', // sender address
+        to: email, // list of receivers
+        subject: "Birthday greetings", // Subject line
+        html: data,
+      })
+      .then((info) => {
+        console.log(info.messageId);
+      }).catch((err)=>{
+        console.log(err);
+      });
+  };
+
+
+module.exports=sendEmail;

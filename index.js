@@ -6,9 +6,9 @@ const sendMail=require("./functions/sendEmail");
 const getTodaysList=require("./functions/getBirthdayList")
 
 const schedule = require('node-schedule');
+const sendEmail=require('./functions/sendEmail');
 
-
-
+const fs = require('fs');
 
 //setting up the express server
 const PORT=process.env.PORT || 3000;
@@ -22,7 +22,22 @@ app.listen(PORT,()=>{
 
 
 //run the script //   0 10 * * *
-const job = schedule.scheduleJob('*/10 * * * * *', function(){
+const job = schedule.scheduleJob('*/10 * * * * *',async function(){
+        console.log("starting...");
         const list=getTodaysList();
         console.log(list);
-  });
+        // await sendEmail(list[0]["Student Name"],list[0]["Batch"],"keshavrawat999.kr@gmail.com")
+        // console.log("done!!")
+});
+
+
+function asyncDemo() {
+    console.log("In async function");
+    return new Promise((resolve, reject)=> {
+      setTimeout(() => {
+        resolve();
+      }, 5000)
+    });
+  }
+
+
