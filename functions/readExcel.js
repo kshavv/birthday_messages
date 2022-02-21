@@ -44,11 +44,6 @@ const correct_formatting=(sheetName)=>{
     return correctName;
 }
 
-function getJsDateFromExcel(excelDate) {
-      return new Date((excelDate - (25567 + 2))*86400*1000);
-}
-
-
 
 
 module.exports=readExcel;

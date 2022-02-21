@@ -9,7 +9,7 @@ module.exports=getTodaysList=()=>{
     const tmonth=today.getMonth()+1;
 
     data.forEach(elem => {    
-        y=getJsDateFromExcel(elem["Date of Birth"]);
+        let y=getJsDateFromExcel(elem["Date of Birth"]);
         if(tdate==(y.getDate()) && tmonth==(y.getMonth()+1)){
             listofBirthdays.push(elem);
         }
