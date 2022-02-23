@@ -1,43 +1,41 @@
-const express =require("express");
-const app=express();
+const express = require("express");
+const app = express();
 
-const readExcel=require("./functions/readExcel");
-const sendMail=require("./functions/sendEmail");
-const getTodaysList=require("./functions/getBirthdayList")
+const readExcel = require("./functions/readExcel");
+const sendMail = require("./functions/sendEmail");
+const getTodaysList = require("./functions/getBirthdayList");
 
-const schedule = require('node-schedule');
-const sendEmail=require('./functions/sendEmail');
+const schedule = require("node-schedule");
+const sendEmail = require("./functions/sendEmail");
 
-const fs = require('fs');
+const fs = require("fs");
 
-//setting up the express server
-const PORT=process.env.PORT || 3000;
-app.listen(PORT,()=>{
-    console.log(`server started on PORT ${PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`server started on PORT ${PORT}`);
 });
-
-
-//calling function for reading excel
-// readExcel("./data/book.xlsx");
-
 
 //run the script //   0 10 * * *
-const job = schedule.scheduleJob('*/10 * * * * *',async function(){
-        console.log("starting...");
-        const list=getTodaysList();
-        console.log(list);
-        // await sendEmail(list[0]["Student Name"],list[0]["Batch"],"keshavrawat999.kr@gmail.com")
-        // console.log("done!!")
+const job = schedule.scheduleJob("*/20 * * * * *", async function () {
+  console.log("starting...");
+  const list = getTodaysList();
+  console.log(list);
+
+  if (isDataValid(list[0])) {
+    await sendEmail(
+      list[0]["Student Name"],
+      list[0]["Batch"],
+      "keshavrawat999.kr@gmail.com"
+    );
+    console.log("done!!");
+  } else {
+    console.log("data is invalid");
+  }
 });
 
+const isDataValid = (data) => {
+  if (data.hasOwnProperty("Student Name") && data.hasOwnProperty("Email Id"))
+    return true;
 
-function asyncDemo() {
-    console.log("In async function");
-    return new Promise((resolve, reject)=> {
-      setTimeout(() => {
-        resolve();
-      }, 5000)
-    });
-  }
-
-
+  return false;
+};
