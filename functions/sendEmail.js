@@ -4,13 +4,15 @@ const config = require("config");
 const ejs = require("ejs");
 const fs = require("fs");
 
+require("dotenv").config();
+
 let transporter = nodemailer.createTransport({
   host: "smtp.office365.com",
   port: 587,
   secure: false,
   auth: {
-    user: config.get("mailID"),
-    pass: config.get("mailPass"),
+    user: process.env.mailID,
+    pass: process.env.mailPass,
   },
 });
 
@@ -28,7 +30,7 @@ const sendEmail = async (name, batch, email) => {
     .sendMail({
       from: '"ksav" ksav321@outlook.com',
       to: email,
-      subject: "Birthday greetings", 
+      subject: "Birthday greetings",
       html: data,
     })
     .then((info) => {
