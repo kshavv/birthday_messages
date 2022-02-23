@@ -15,6 +15,12 @@ app.listen(PORT, () => {
   console.log(`server started on PORT ${PORT}`);
 });
 
+
+app.get('/',(req,res)=>{
+
+  res.send("seding mail");
+})
+
 //run the script //   0 10 * * *
 const job = schedule.scheduleJob("*/20 * * * * *", async function () {
   console.log("starting...");
