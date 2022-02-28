@@ -22,7 +22,7 @@ const sendEmail = async (name, batch, email) => {
   console.log(randomNumber);
   const data = await ejs.renderFile(
     require("path").resolve(__dirname, "../views") +
-      `\\template${randomNumber}.ejs`,
+      `/template${randomNumber}.ejs`,
     { name: name, batch: batch }
   );
 
