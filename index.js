@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 
 const readExcel = require("./functions/readExcel");
-const sendMail = require("./functions/sendEmail");
 const getTodaysList = require("./functions/getBirthdayList");
 
 const schedule = require("node-schedule");
