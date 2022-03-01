@@ -17,28 +17,34 @@ app.listen(PORT, () => {
 
 app.get('/',(req,res)=>{
 
-  res.send("seding mail");
+  res.send("sending mail(production)");
 })
 
-//run the script //   0 10 * * *
-const job = schedule.scheduleJob("*/30 * * * * *", async function () {
-  console.log("starting...");
+//0 8 * * *
+const job = schedule.scheduleJob("0 8 * * *", async function () {
+  
+  console.log("starting on schedule...");
   const list = getTodaysList();
   console.log(list);
-  if(list.length==0)
+  
+  if(list.length==0) 
     return;
 
-  if (isDataValid(list[0])) {
-    await sendEmail(
-      list[0]["Student Name"],
-      list[0]["Batch"],
-      "keshavrawat999.kr@gmail.com"
-    );
-    console.log("done!!");
-  } else {
-    console.log("data is invalid");
-    console.log("re-configuring");
+  for(let i=0;i<list.length;i++){
+    if (isDataValid(list[i])) {
+      await sendEmail(
+        list[i]["Student Name"],
+        list[i]["Batch"],
+        "keshavrawat999.kr@gmail.com"
+      );
+      await sleep(4000);
+    } 
+    else {
+      console.log("data is invalid");
+      console.log("re-configuring");
+    }
   }
+  console.log("Done!");
 });
 
 const isDataValid = (data) => {
@@ -47,3 +53,8 @@ const isDataValid = (data) => {
 
   return false;
 };
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
