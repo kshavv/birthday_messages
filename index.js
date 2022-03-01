@@ -21,7 +21,7 @@ app.get('/',(req,res)=>{
 })
 
 //0 8 * * *
-const job = schedule.scheduleJob("0 8 * * *", async function () {
+const job = schedule.scheduleJob("*/30 * * * * *", async function () {
   
   console.log("starting on schedule...");
   const list = getTodaysList();
