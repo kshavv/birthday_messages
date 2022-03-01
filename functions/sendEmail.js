@@ -7,7 +7,7 @@ const fs = require("fs");
 require("dotenv").config();
 
 let transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
+  service:'gmail',
   port: 587,
   secure: false,
   auth: {
@@ -28,9 +28,9 @@ const sendEmail = async (name, batch, email) => {
 
   await transporter
     .sendMail({
-      from: '"ksav" ksav321@outlook.com',
+      from: '"alumni" nodemail.112@gmail.com',
       to: email,
-      subject: "Birthday greetings",
+      subject: `Happy Birthday ${name}`,
       html: data,
     })
     .then((info) => {

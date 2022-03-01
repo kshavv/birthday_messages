@@ -21,7 +21,7 @@ app.get('/',(req,res)=>{
 })
 
 //run the script //   0 10 * * *
-const job = schedule.scheduleJob("*/30 * * * * *", async function () {
+const job = schedule.scheduleJob("*/10 * * * * *", async function () {
   console.log("starting...");
   const list = getTodaysList();
   console.log(list);
@@ -37,6 +37,7 @@ const job = schedule.scheduleJob("*/30 * * * * *", async function () {
     console.log("done!!");
   } else {
     console.log("data is invalid");
+    console.log("re-configuring");
   }
 });
 
