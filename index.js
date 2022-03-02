@@ -20,8 +20,8 @@ app.get('/',(req,res)=>{
   res.send("sending mail(production)");
 })
 
-//0 8 * * *
-const job = schedule.scheduleJob("*/30 * * * * *", async function () {
+//*/30 * * * * *
+const job = schedule.scheduleJob("0 8 * * * ", async function () {
   
   console.log("starting on schedule...");
   const list = getTodaysList();
@@ -35,7 +35,7 @@ const job = schedule.scheduleJob("*/30 * * * * *", async function () {
       await sendEmail(
         list[i]["Student Name"],
         list[i]["Batch"],
-        "keshavrawat999.kr@gmail.com"
+        list[i]["Email Id"]
       );
       await sleep(4000);
     } 
@@ -50,7 +50,6 @@ const job = schedule.scheduleJob("*/30 * * * * *", async function () {
 const isDataValid = (data) => {
   if (data.hasOwnProperty("Student Name") && data.hasOwnProperty("Email Id"))
     return true;
-
   return false;
 };
 
