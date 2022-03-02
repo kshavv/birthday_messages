@@ -30,7 +30,7 @@ const sendEmail = async (name, batch, email) => {
     .sendMail({
       from: '"alumni" nodemail.112@gmail.com',
       to: email,
-      subject: `Happy Birthday ${name}`,
+      subject: `Happy Birthday ${name} --from G.B Pant Govt Engineering College`,
       html: data,
     })
     .then((info) => {
