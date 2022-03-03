@@ -44,10 +44,14 @@ const sendEmail = async (name, batch, email) => {
 
 
 const formatNames=(name)=>{
-  name=name.toLowerCase();
-  const str=name.charAt(0).toUpperCase()+name.slice(1);
+  const nameComp=name.split(" ");
+  let str="";
+  nameComp.forEach(comp=>{
+    comp=comp.toLowerCase();
+    str+=comp.charAt(0).toUpperCase()+comp.slice(1);
+    str+=" "
+  })
   return str;
-
 }
 
 module.exports = sendEmail;
