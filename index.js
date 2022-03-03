@@ -20,8 +20,8 @@ app.get('/',(req,res)=>{
   res.send("sending mail(production)");
 })
 
-//*/30 * * * * *
-const job = schedule.scheduleJob("0 8 * * * ", async function () {
+//*/30 * * * * *   0 8 * * *
+const job = schedule.scheduleJob("*/30 * * * * *", async function () {
   
   console.log("starting on schedule...");
   const list = getTodaysList();
@@ -35,9 +35,9 @@ const job = schedule.scheduleJob("0 8 * * * ", async function () {
       await sendEmail(
         list[i]["Student Name"],
         list[i]["Batch"],
-        list[i]["Email Id"]
+        "keshavrawat999.kr@gmail.com"
       );
-      await sleep(4000);
+      // await sleep(4000);
     } 
     else {
       console.log("data is invalid");

@@ -17,6 +17,7 @@ let transporter = nodemailer.createTransport({
 });
 
 const sendEmail = async (name, batch, email) => {
+  name=formatNames(name);
   let files = fs.readdirSync("./views");
   let randomNumber = Math.floor(Math.random() * files.length + 1);
   console.log(randomNumber);
@@ -40,5 +41,13 @@ const sendEmail = async (name, batch, email) => {
       console.log(err);
     });
 };
+
+
+const formatNames=(name)=>{
+  name=name.toLowerCase();
+  const str=name.charAt(0).toUpperCase()+name.slice(1);
+  return str;
+
+}
 
 module.exports = sendEmail;
