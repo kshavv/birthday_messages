@@ -20,7 +20,30 @@
     </div>
 
     <script>
-        document.querySelector(".drop-zone")
+        document.querySelectorAll(".drop-zone-input").forEach(element => {
+            const dropContent=element.closest(".drop-zone");
+ 
+            dropContent.addEventListener("dragover",e=>{
+                e.preventDefault();
+                dropContent.classList.add('drop-zone--over');
+            })
+
+            dropContent.addEventListener('dragend',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+
+            dropContent.addEventListener('dragleave',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+
+            dropContent.addEventListener("drop",e=>{
+                e.preventDefault();
+                dropContent.classList.remove('drop-zone--over')
+                console.log(e.dataTransfer.files)
+            })
+        });
+
+
     </script>
     
 </body>
