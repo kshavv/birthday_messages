@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Sedgwick+Ave+Display');
 
 
+body{
+  flex-direction: column;
+}
+
+.navbar{
+
+}
+
+.navbar span{
+}
+
+.navbar span a{
+  color:white;
+  text-decoration: none;
+}
 .container{
     width:80vw;
     height:500px;

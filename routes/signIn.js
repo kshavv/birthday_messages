@@ -12,8 +12,6 @@ const auth=require("../middleware/auth");
 
 
 
-
-
 //@route    GET 
 //@desc     the signIn route
 //@access   Public
@@ -52,14 +50,14 @@ router.post('/',regDataCheck,async(req,res)=>{
 
 
         const payload={user};
+        const secretString=process.env.jwtSecret;
 
-        jwt.sign(payload,process.env.jwtSecret,
-        {expiresIn:3600},
-        (err,token)=>{
-        if(err)
-            throw err;
-        console.log(token);
-        // return res.json({token:token})
+        jwt.sign(payload,secretString,{expiresIn:3600},(err,token)=>{
+            if(err)
+                throw err;
+            //store the token in cookies
+            res.cookie('jwt',token,{httpOnly:true,maxAge:60*60});
+            res.redirect('/main');
         });
 
 

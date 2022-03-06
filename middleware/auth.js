@@ -1,13 +1,15 @@
 // this verifies the authenticity of tokens
 
 const jwt=require('jsonwebtoken');
-const config=require('config');
+
 
 
 module.exports=async function(req,res,next){
 
     //get token from header
-    const token=req.header('x-auth-token');
+    const token=req.cookies.jwt;
+    
+    console.log(token)
 
     if(!token)
         return res.status(403).render('../client/forbidden.ejs');

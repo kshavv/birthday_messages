@@ -9,6 +9,8 @@ const sendEmail = require("./functions/sendEmail");
 
 const fs = require("fs");
 
+const cookie=require("cookie-parser");
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server started on PORT ${PORT}`);
@@ -20,6 +22,7 @@ app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/client'));
 
+app.use(cookie());
 
 //*/30 * * * * *   0 8 * * *
 // const job = schedule.scheduleJob("*/30 * * * * *", async function () {
