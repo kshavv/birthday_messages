@@ -14,9 +14,12 @@ app.listen(PORT, () => {
   console.log(`server started on PORT ${PORT}`);
 });
 
+app.use(express.json());
 
 app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
+app.use(express.static(__dirname + '/client'));
+
 
 //*/30 * * * * *   0 8 * * *
 // const job = schedule.scheduleJob("*/30 * * * * *", async function () {

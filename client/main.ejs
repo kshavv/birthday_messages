@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="drop-zone">
+            <span class="drop-zone-prompt">Drop File Here or click to upload</span>
+            <!-- <div class="drop-zone-thumb" data-label="myfile.txt">
+                
+            </div> -->
+            <input type="file" name="book" id="book" class="drop-zone-input">
+        </div>
+        <div class="message" id="message">
+            <span>
+                <% if(message) { %>
+                    <%= message %>
+                        <% } %>
+            </span>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll(".drop-zone-input").forEach(element => {
+            const dropContent=element.closest(".drop-zone");
+            
+            dropContent.addEventListener('click',(e)=>{
+                element.click();
+            })
+
+            element.addEventListener('change',async (e)=>{
+                if(element.files.length){
+                    updateThumbnail(dropContent,element.files[0]);
+                    await uploadExcelFile(element.files[0]);
+
+                }
+            })
+ 
+
+            dropContent.addEventListener("dragover",e=>{
+                e.preventDefault();
+                dropContent.classList.add('drop-zone--over');
+            })
+            dropContent.addEventListener('dragleave',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+            dropContent.addEventListener('dragend',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+
+
+            dropContent.addEventListener("drop",async (e)=>{
+
+                e.preventDefault();
+                if(e.dataTransfer.files.length>0)
+                    updateThumbnail(dropContent,e.dataTransfer.files[0]);
+
+                await uploadExcelFile(e.dataTransfer.files[0]);
+                dropContent.classList.remove('drop-zone--over');
+            })
+        });
+
+
+        const uploadExcelFile=async(file)=>{
+
+            const fd = new FormData();
+            fd.append('book', file);
+
+            const options={
+                method: 'POST',
+                body: fd
+            }
+            const response =await fetch('/uploadsheet',options)
+            // const message=await response.json();
+            // console.log(message);
+        }
+
+
+        const removeThumbnail=()=>{
+
+
+
+
+        }
+
+        const updateThumbnail=(dropZoneElement,file)=>{
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone-thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone-prompt")) {
+            dropZoneElement.querySelector(".drop-zone-prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone-thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+            }
+
+            thumbnailElement.dataset.label = file.name;
+        }
+
+
+    </script>
+    
+</body>
+</html>
