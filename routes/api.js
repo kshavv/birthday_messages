@@ -10,6 +10,8 @@ const multer=require('multer');
 const jwt=require("jsonwebtoken");
 const auth=require("../middleware/auth");
 
+const readExcel=require('../functions/readExcel')
+
 
 
 //@route    GET 
@@ -56,8 +58,8 @@ router.post('/',regDataCheck,async(req,res)=>{
             if(err)
                 throw err;
             //store the token in cookies
-            res.cookie('jwt',token,{httpOnly:true,maxAge:60*60});
-            res.redirect('/main');
+            res.cookie('jwt',token,{httpOnly:true});
+            res.status(302).redirect('/main');
         });
 
 
@@ -76,6 +78,10 @@ router.get('/main',auth,(req,res)=>{
 
 })
 
+
+
+let maxSize=2*1000*1000; //max permissible size of file
+
 const storage=multer.diskStorage({
     destination:path.resolve(__dirname,"../data"),
     filename:function(req,file,cb){
@@ -85,34 +91,33 @@ const storage=multer.diskStorage({
 
 const upload=multer({
     storage:storage,
-    limits:{fileSize:2*1000*1000}
-
+    limits:{fileSize:maxSize}
 }).single('book');
-
-
-
-
-
-
-
-
 
 
 //@route    POST /uploadsheet
 //@desc     route for uploading the sheet
 //@access   private
-router.post('/uploadsheet',(req,res)=>{
+router.post('/uploadsheet',auth,(req,res)=>{
     upload(req,res,(err)=>{
         if(err){
-            console.log(err.message);
+            console.log(err.message)
+            res.json({msg:err.message});
         }
         else{
-            console.log(req.file);
-            // res.send({msg:"👍"});
+            readExcel();
+            res.json({msg:"done ✨"});
         }
     });
-    res.render('../client/main.ejs',{message:"done"});
 })
 
+
+//@route    GET/logout
+//@desc     route for loggin out
+//@access   private
+
+router.get('/logout',auth,(req,res)=>{
+    return res.clearCookie("jwt").status(200).redirect('/')
+})
 
 module.exports=router; 

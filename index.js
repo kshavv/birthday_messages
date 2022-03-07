@@ -51,6 +51,7 @@ app.use(cookie());
 //   console.log("Done!");
 // });
 
+
 const isDataValid = (data) => {
   if (data.hasOwnProperty("Student Name") && data.hasOwnProperty("Email Id"))
     return true;
@@ -60,7 +61,7 @@ const isDataValid = (data) => {
 
 
 //defining routes
-app.use('/',require('./routes/signIn'));
+app.use('/',require('./routes/api'));
 
 
 

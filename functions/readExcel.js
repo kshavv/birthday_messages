@@ -1,7 +1,8 @@
 const reader = require("xlsx");
 const fs = require("fs");
 
-const readExcel = async (address) => {
+const readExcel = async () => {
+  const address=require("path").resolve(__dirname, "../data/book.xlsx");
   const file = await reader.readFile(address);
   const sheets = file.SheetNames;
   let data = [];
