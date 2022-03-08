@@ -97,8 +97,10 @@ body{
 }
 
 .message{
+
     margin-top: 20px;
     color: aliceblue;
+    font-size: x-large;
 }
 
 

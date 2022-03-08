@@ -106,7 +106,7 @@ router.post('/uploadsheet',auth,(req,res)=>{
         }
         else{
             readExcel();
-            res.json({msg:"done ✨"});
+            res.json({msg:"Done ✨"});
         }
     });
 })

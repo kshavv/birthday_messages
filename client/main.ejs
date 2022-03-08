@@ -78,7 +78,7 @@
 
         const uploadExcelFile=async(file,container)=>{
             if(!checkFormat(file)){
-                await switchLoader(true,200);
+                await switchLoader(true,700);
                 container.innerHTML="Please submit an excel file";
                 return;
             }
