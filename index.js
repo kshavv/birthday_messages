@@ -25,31 +25,31 @@ app.use(express.static(__dirname + '/client'));
 app.use(cookie());
 
 // */30 * * * * *   0 8 * * *
-const job = schedule.scheduleJob("*/30 * * * * *", async function () {
+// const job = schedule.scheduleJob("*/30 * * * * *", async function () {
   
-  console.log("starting on schedule...");
-  const list = getTodaysList();
-  console.log(list);
+//   console.log("starting on schedule...");
+//   const list = getTodaysList();
+//   console.log(list);
   
-  if(list.length==0) 
-    return;
+//   if(list.length==0) 
+//     return;
 
-  for(let i=0;i<list.length;i++){
-    if (isDataValid(list[i])) {
-      await sendEmail(
-        list[i]["Student Name"],
-        list[i]["Batch"],
-        "keshavrawat999.kr@gmail.com"
-      );
-      // await sleep(4000);
-    } 
-    else {
-      console.log("data is invalid");
-      console.log("re-configuring");
-    }
-  }
-  console.log("Done!");
-});
+//   for(let i=0;i<list.length;i++){
+//     if (isDataValid(list[i])) {
+//       await sendEmail(
+//         list[i]["Student Name"],
+//         list[i]["Batch"],
+//         "keshavrawat999.kr@gmail.com"
+//       );
+//       // await sleep(4000);
+//     } 
+//     else {
+//       console.log("data is invalid");
+//       console.log("re-configuring");
+//     }
+//   }
+//   console.log("Done!");
+// });
 
 
 const isDataValid = (data) => {
@@ -68,3 +68,4 @@ app.use('/',require('./routes/api'));
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
