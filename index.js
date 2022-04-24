@@ -9,42 +9,61 @@ const sendEmail = require("./functions/sendEmail");
 
 const fs = require("fs");
 
+const cookie=require("cookie-parser");
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server started on PORT ${PORT}`);
 });
 
+app.use(express.json());
 
-app.get('/',(req,res)=>{
+app.set("view engine","ejs");
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(__dirname + '/client'));
 
-  res.send("seding mail");
-})
+app.use(cookie());
 
-//run the script //   0 10 * * *
+// */30 * * * * *   0 8 * * *
 const job = schedule.scheduleJob("*/20 * * * * *", async function () {
-  console.log("starting...");
+  
+  console.log("starting on schedule...");
   const list = getTodaysList();
   console.log(list);
-  if(list.length==0)
+  
+  if(list.length==0) 
     return;
 
-  if (isDataValid(list[0])) {
-    await sendEmail(
-      list[0]["Student Name"],
-      list[0]["Batch"],
-      "keshavrawat999.kr@gmail.com"
-    );
-    console.log("done!!");
-  } else {
-    console.log("data is invalid");
-    console.log("re-configuring");
+  for(let i=0;i<list.length;i++){
+    if (isDataValid(list[i])) {
+      await sendEmail(
+        list[i]["Student Name"],
+        list[i]["Batch"],
+        "keshavrawat999.kr@gmail.com"
+      );
+      // await sleep(4000);
+    } 
+    else {
+      console.log("data is invalid");
+      console.log("re-configuring");
+    }
   }
+  console.log("Done!");
 });
+
 
 const isDataValid = (data) => {
   if (data.hasOwnProperty("Student Name") && data.hasOwnProperty("Email Id"))
     return true;
-
   return false;
 };
+
+
+//defining routes
+app.use('/',require('./routes/api'));
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 

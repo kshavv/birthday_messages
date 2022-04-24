@@ -77,6 +77,7 @@ const smtpTransport = nodemailer.createTransport({
 
 
 const sendEmail = async (name, batch, email) => {
+  name=formatNames(name);
   let files = fs.readdirSync("./views");
   let randomNumber = Math.floor(Math.random() * files.length + 1);
   console.log(randomNumber);
@@ -89,7 +90,7 @@ const sendEmail = async (name, batch, email) => {
     .sendMail({
       from: '"alumni" nodemail.112@gmail.com',
       to: email,
-      subject: `Happy Birthday ${name}`,
+      subject: `Happy Birthday ${name} --from G.B Pant Govt Engineering College`,
       html: data,
     })
     .then((info) => {
@@ -101,6 +102,15 @@ const sendEmail = async (name, batch, email) => {
 };
 
 
-
+const formatNames=(name)=>{
+  const nameComp=name.split(" ");
+  let str="";
+  nameComp.forEach(comp=>{
+    comp=comp.toLowerCase();
+    str+=comp.charAt(0).toUpperCase()+comp.slice(1);
+    str+=" "
+  })
+  return str;
+}
 
 module.exports = sendEmail;

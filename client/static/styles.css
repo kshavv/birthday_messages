@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Sedgwick+Ave+Display');
+
+body{
+  background: linear-gradient(to bottom, rgba(35,37,38,1) 0%,rgba(32,38,40,1) 100%);
+}
+
+.navbar{
+  padding:20px;
+  display:flex;
+  justify-content: flex-end;
+  
+  flex-direction: row;
+  height:120px;
+}
+
+.navbar div{
+  font-size: x-large;
+  border: 5px solid aliceblue ;
+  padding:5px;
+  height:40px;
+
+}
+
+.navbar div:hover{
+  border: 10px solid aliceblue ;
+}
+
+.navbar span a{
+  color:aliceblue;
+  text-decoration: none;
+}
+
+
+.container{
+    width:80vw;
+    height:500px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-zone{
+
+    max-width:550px;
+    width:350px;
+    height:350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px rgb(46, 120, 139) dashed;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family:'Quicksand',sans-serif;
+    font-weight: 700;
+}
+
+.drop-zone--over{
+    border-style: solid;
+    box-shadow: 0px 0px 10px 1px cornflowerblue;
+}
+
+.drop-zone .drop-zone-prompt{
+
+    font-size: x-large;
+    color:#919191;
+}
+
+.drop-zone .drop-zone-input{
+    display: none;
+
+}
+
+.drop-zone .drop-zone-thumb{
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #cccccc;
+    background-size: cover;
+    position: relative;
+}
+
+.drop-zone .drop-zone-thumb::after{
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding:5px 0;
+    background: rgba(0, 0, 0, 0.70);
+    font-size: 14px;
+    text-align: center;
+    color: aliceblue;
+}
+
+.message{
+
+    margin-top: 20px;
+    color: aliceblue;
+    font-size: x-large;
+}
+
+
+#loader {
+  display: none;
+  position: relative;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  border: 5px solid rgba(32,38,40,1);
+  border-radius: 50%;
+  border-top: 5px solid #347cdb;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+

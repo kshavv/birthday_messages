@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <span><a href="/logout">Logout</a></span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="drop-zone">
+            <span class="drop-zone-prompt">Drop File Here or click to upload</span>
+            <!-- <div class="drop-zone-thumb" data-label="myfile.txt">
+                
+            </div> -->
+            <input type="file" name="book" id="book" class="drop-zone-input" accept=".xls, .xlsx">
+        </div>
+        <div class="message" id="message">
+            <span>
+                <% if(message) { %>
+                    <%= message %>
+                        <% } %>
+            </span>
+        </div>
+        <div id="loader"></div>
+    </div>
+
+    <script>
+
+        document.querySelectorAll(".drop-zone-input").forEach(element => {
+            const dropContent=element.closest(".drop-zone");
+            dropContent.addEventListener('click',(e)=>{
+                element.click();
+            })
+
+            element.addEventListener('change',async (e)=>{
+                if(element.files.length){
+                    updateThumbnail(dropContent,element.files[0]);
+                    await uploadExcelFile(element.files[0]);
+                }
+            })
+ 
+            dropContent.addEventListener("dragover",e=>{
+                e.preventDefault();
+                dropContent.classList.add('drop-zone--over');
+            })
+            dropContent.addEventListener('dragleave',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+            dropContent.addEventListener('dragend',e=>{
+                dropContent.classList.remove('drop-zone--over')
+            })
+
+
+            dropContent.addEventListener("drop",async (e)=>{
+                
+                e.preventDefault();
+                if(e.dataTransfer.files.length>0)
+                    updateThumbnail(dropContent,e.dataTransfer.files[0]);
+                
+                const messageContainer=document.querySelector("#message");
+                messageContainer.innerHTML="";
+                await uploadExcelFile(e.dataTransfer.files[0],messageContainer);
+                await removeThumbnail(dropContent);
+                await switchLoader(false,0);
+
+                dropContent.classList.remove('drop-zone--over');
+
+            })
+        });
+
+
+        const uploadExcelFile=async(file,container)=>{
+            if(!checkFormat(file)){
+                await switchLoader(true,700);
+                container.innerHTML="Please submit an excel file";
+                return;
+            }
+            const fd = new FormData();
+            fd.append('book', file);
+            const options={
+                method: 'POST',
+                body: fd,
+            }
+
+            await switchLoader(true,2000);
+            const response =await fetch('/uploadsheet',options)
+            const message=await response.json();
+            container.innerHTML=message.msg;
+
+        }
+
+        const removeThumbnail=(dropZoneElement)=>{
+            dropZoneElement.querySelector(".drop-zone-thumb").remove();
+            promptElement = document.createElement("div");
+            promptElement.classList.add("drop-zone-prompt");
+            promptElement.innerHTML="Drop File Here or click to upload"
+            dropZoneElement.appendChild(promptElement);
+        }
+
+        const checkFormat=(file)=>{
+            if(!['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+                return false;
+            }
+            return true;
+        }
+
+        const updateThumbnail=(dropZoneElement,file)=>{
+            let thumbnailElement = dropZoneElement.querySelector(".drop-zone-thumb");
+
+            // First time - remove the prompt
+            if (dropZoneElement.querySelector(".drop-zone-prompt")) {
+            dropZoneElement.querySelector(".drop-zone-prompt").remove();
+            }
+
+            // First time - there is no thumbnail element, so lets create it
+            if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone-thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+            }
+
+            thumbnailElement.dataset.label = file.name;
+        }
+
+        const switchLoader= async (state,ms)=>{
+            const loader=document.querySelector("#loader");
+            if(state){
+                loader.style.display="block";
+                await sleep(ms);
+            }
+            else{
+                loader.style.display="none";
+            }
+        }
+        
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+    </script>
+    
+</body>
+</html>
