@@ -11,10 +11,6 @@ const fs = require("fs");
 
 const cookie=require("cookie-parser");
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`server started on PORT ${PORT}`);
-});
 
 app.use(express.json());
 
@@ -67,3 +63,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`server started on PORT ${PORT}`);
+});
