@@ -1,24 +1,19 @@
 const express = require("express");
 const app = express();
-
 const readExcel = require("./functions/readExcel");
 const getTodaysList = require("./functions/getBirthdayList");
-
 const schedule = require("node-schedule");
 // const sendEmail = require("./functions/sendEmail");
-
 const fs = require("fs");
-
 const cookie=require("cookie-parser");
 
 
 app.use(express.json());
-
 app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/client'));
-
 app.use(cookie());
+
 
 // */30 * * * * *   0 8 * * *
 const job = schedule.scheduleJob("0 8 * * *", async function () {
