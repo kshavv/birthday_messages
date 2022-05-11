@@ -3,8 +3,14 @@ const jwt=require('jsonwebtoken');
 module.exports=async function(req,res,next){
 
     const token=req.cookies.jwt;
-    if(!token)
-        return res.status(403).render('../client/forbidden.ejs');
+
+    if(!token){
+        if(req.path=="/main"){
+            return res.status(403).render('../client/forbidden.ejs');
+        }
+        return  res.json({msg:"-1"});
+    }
+    console.log("after  token");
     
     //verify token
     try {
@@ -18,6 +24,4 @@ module.exports=async function(req,res,next){
     } catch (error) {
         res.status(401).json({msg:"token is not valid"});
     }
-
-
 }

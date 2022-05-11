@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express=require("express");
 const router=express.Router();
 const {check,validationResult}=require("express-validator");
@@ -6,7 +7,6 @@ const path = require('path');
 //for handling file upload
 const multer=require('multer');
 
-
 const jwt=require("jsonwebtoken");
 const auth=require("../middleware/auth");
 
@@ -14,10 +14,15 @@ const readExcel=require('../functions/readExcel')
 
 
 
+
+
 //@route    GET 
 //@desc     the signIn route
 //@access   Public
 router.get('/',(req,res)=>{
+    
+    //if the token is present redirect
+
     res.render('../client/signIn.ejs',{error: ""});
 })
 
@@ -78,6 +83,10 @@ router.get('/main',auth,(req,res)=>{
 
 })
 
+router.get('/forbidden',(req,res)=>{
+    res.render('../client/forbidden.ejs');
+})
+
 
 
 let maxSize=2*1000*1000; //max permissible size of file
@@ -103,10 +112,12 @@ router.post('/uploadsheet',auth,(req,res)=>{
         if(err){
             console.log(err.message)
             res.json({msg:err.message});
+            // res.render('../client/main.ejs',"error")
         }
         else{
             readExcel();
             res.json({msg:"Done ✨"});
+            // res.render('../client/main.ejs',{message:"Done ✨"})
         }
     });
 })
@@ -116,7 +127,7 @@ router.post('/uploadsheet',auth,(req,res)=>{
 //@desc     route for loggin out
 //@access   private
 
-router.get('/logout',auth,(req,res)=>{
+router.get('/logout',(req,res)=>{
     return res.clearCookie("jwt").status(200).redirect('/')
 })
 

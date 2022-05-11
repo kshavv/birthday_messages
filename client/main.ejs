@@ -90,8 +90,14 @@
             }
 
             await switchLoader(true,2000);
-            const response =await fetch('/uploadsheet',options)
+            const response=await fetch('/uploadsheet',options)
+            
+
             const message=await response.json();
+            if(message.msg == -1){
+                window.location.assign('/forbidden')
+                return;
+            }
             container.innerHTML=message.msg;
 
         }
