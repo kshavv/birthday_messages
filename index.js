@@ -16,7 +16,7 @@ app.use(cookie());
 
 
 // */30 * * * * *   0 8 * * *
-const job = schedule.scheduleJob("*/20 * * * * * ", async function () {
+const job = schedule.scheduleJob("*/55 * * * * * ", async function () {
   
   console.log("starting on schedule...");
   const list = getTodaysList();
