@@ -3,7 +3,7 @@ const app = express();
 const readExcel = require("./functions/readExcel");
 const getTodaysList = require("./functions/getBirthdayList");
 const schedule = require("node-schedule");
-// const sendEmail = require("./functions/sendEmail");
+const sendEmail = require("./functions/sendEmail");
 const fs = require("fs");
 const cookie=require("cookie-parser");
 
@@ -16,7 +16,7 @@ app.use(cookie());
 
 
 // */30 * * * * *   0 8 * * *
-const job = schedule.scheduleJob("0 8 * * *", async function () {
+const job = schedule.scheduleJob("*/20 * * * * * ", async function () {
   
   console.log("starting on schedule...");
   const list = getTodaysList();
@@ -25,20 +25,20 @@ const job = schedule.scheduleJob("0 8 * * *", async function () {
   if(list.length==0) 
     return;
 
-  // for(let i=0;i<list.length;i++){
-  //   if (isDataValid(list[i])) {
-  //     await sendEmail(
-  //       list[i]["Student Name"],
-  //       list[i]["Batch"],
-  //       "keshavrawat999.kr@gmail.com"
-  //     );
-  //     // await sleep(4000);
-  //   } 
-  //   else {
-  //     console.log("data is invalid");
-  //     console.log("re-configuring");
-  //   }
-  // }
+  for(let i=0;i<list.length;i++){
+    if (isDataValid(list[i])) {
+      await sendEmail(
+        list[i]["Student Name"],
+        list[i]["Batch"],
+        "keshavrawat999.kr@gmail.com"
+      );
+      await sleep(3000);
+    } 
+    else {
+      console.log("data is invalid");
+      console.log("re-configuring");
+    }
+  }
   console.log("Done!");
 });
 

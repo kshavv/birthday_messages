@@ -10,8 +10,7 @@ module.exports=async function(req,res,next){
         }
         return  res.json({msg:"-1"});
     }
-    console.log("after  token");
-    
+
     //verify token
     try {
         jwt.verify(token, process.env.jwtSecret,async (error, decoded) => {

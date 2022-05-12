@@ -1,5 +1,7 @@
 const reader = require("xlsx");
 const fs = require("fs");
+const data = require("../data/jsonData/details.json");
+
 
 const readExcel = async () => {
   const address=require("path").resolve(__dirname, "../data/book.xlsx");

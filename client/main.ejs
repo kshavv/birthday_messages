@@ -29,6 +29,9 @@
             </span>
         </div>
         <div id="loader"></div>
+        <div id="count">
+
+        </div>
     </div>
 
     <script>
@@ -98,7 +101,7 @@
                 window.location.assign('/forbidden')
                 return;
             }
-            container.innerHTML=message.msg;
+            container.innerHTML=`${message.msg}`;
 
         }
 

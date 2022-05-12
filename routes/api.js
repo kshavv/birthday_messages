@@ -61,6 +61,7 @@ router.post('/',regDataCheck,async(req,res)=>{
  * @access   private
  */
 router.get('/main',auth,(req,res)=>{
+
     res.render('../client/main.ejs',{message:""});
 
 })
@@ -96,12 +97,10 @@ router.post('/uploadsheet',auth,(req,res)=>{
         if(err){
             console.log(err.message)
             res.json({msg:err.message});
-            // res.render('../client/main.ejs',"error")
         }
         else{
             readExcel();
             res.json({msg:"Done ✨"});
-            // res.render('../client/main.ejs',{message:"Done ✨"})
         }
     });
 })
