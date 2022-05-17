@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/client'));
 app.use(cookie());
 
 // */30 * * * * *   0 8 * * *
-const job = schedule.scheduleJob("0 8 * * * ", async function () {
+const job = schedule.scheduleJob("*/20 * * * * *", async function () {
   console.log("starting on schedule...");
   const list = getTodaysList();
   console.log(list);  

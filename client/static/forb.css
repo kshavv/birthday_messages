@@ -2,7 +2,7 @@
 /* forbidden page css */
 /* Thank you Piotr Galor for this cool design */
 
-:root {
+body {
     --font-display: 'Sedgwick Ave Display';
     --font-sans-serif: 'IBM Plex Mono';
     --box-shadow: 0px 21px 34px 0px rgba(0, 0, 0, 0.89);

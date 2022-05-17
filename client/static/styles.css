@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Sedgwick+Ave+Display');
 
 body{
-  background: linear-gradient(to bottom, rgba(35,37,38,1),rgba(32,38,40,1));
+  background: rgba(32,38,40,1);
 }
 
 .navbar{

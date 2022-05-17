@@ -38,5 +38,12 @@ module.exports=class Utilities{
           console.log("Successfully wrote file");
         });
     };
+
+    static alumniCount=()=>{
+        const data = require("../data/jsonData/details.json");
+        let count=data.length;
+        delete require.cache[require.resolve('../data/jsonData/details.json')];
+        return count;
+    }
 }
 
