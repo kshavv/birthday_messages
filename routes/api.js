@@ -9,18 +9,21 @@ const auth=require("../middleware/auth");
 const readExcel=require('../functions/readExcel')
 
 
-//@route    GET 
-//@desc     the signIn route
-//@access   Public
+/**
+ * @route   GET /
+ * @desc    the sign In Route
+ * @access  public
+ */
 router.get('/',(req,res)=>{
-    //if the token is present redirect
     res.render('../client/signIn.ejs',{error: ""});
 })
 
 
-//@route    POST api/auth
-//@desc     authenticate user and get token
-//@access   public
+/**
+ * @route   POST /
+ * @desc    authenticate user and get token
+ * @access  public
+ */
 const regDataCheck=[
     check('username','name is required').not().isEmpty(),
     check('password','please enter a password with 6 or more character').isLength({min:6})    
@@ -55,25 +58,28 @@ router.post('/',regDataCheck,async(req,res)=>{
     }
 })
 
+
 /**
- * @route    GET /main screen
+ * @route    GET /main 
  * @desc     route for main screen
  * @access   private
  */
 router.get('/main',auth,(req,res)=>{
-
     res.render('../client/main.ejs',{message:""});
-
 })
 
+
+/**
+ * @route    GET /forbidden
+ * @desc     route to forbidden page
+ * @access   public
+ */
 router.get('/forbidden',(req,res)=>{
     res.render('../client/forbidden.ejs');
 })
 
 
-
 let maxSize=2*1000*1000; //max permissible size of file
-
 const storage=multer.diskStorage({
     destination:path.resolve(__dirname,"../data"),
     filename:function(req,file,cb){
@@ -100,7 +106,7 @@ router.post('/uploadsheet',auth,(req,res)=>{
         }
         else{
             readExcel();
-            res.json({msg:"Done ✨"});
+            res.json({msg:"File uploaded👍"});
         }
     });
 })

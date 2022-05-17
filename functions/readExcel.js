@@ -1,6 +1,6 @@
 const reader = require("xlsx");
-const fs = require("fs");
 const data = require("../data/jsonData/details.json");
+const Utilities=require('../functions/utilities')
 
 
 const readExcel = async () => {
@@ -15,29 +15,8 @@ const readExcel = async () => {
       data.push(res);
     });
   }
-  saveToFile(data);
+  Utilities.saveToFile(data);
 };
 
-const saveToFile = async (data) => {
-  const dataString = JSON.stringify(data, null, 2);
-  fs.writeFile("./data/jsonData/details.json", dataString, (err) => {
-    if (err) {
-      console.log("Error writing file", err);
-    }
-    console.log("Successfully wrote file");
-  });
-};
-
-/**
- * corrects the formatting of sheetName
- */
-const correct_formatting = (sheetName) => {
-  let comp = sheetName.split(" ");
-  let correctName = "";
-  comp.forEach((item) => {
-    correctName += item;
-  });
-  return correctName;
-};
 
 module.exports = readExcel;

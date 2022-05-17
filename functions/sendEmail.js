@@ -1,12 +1,9 @@
 const nodemailer = require("nodemailer");
-const config = require("config");
-
 const ejs = require("ejs");
 const fs = require("fs");
-
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-
+const Utilities=require('../functions/utilities')
 require("dotenv").config();
 
 
@@ -21,6 +18,7 @@ oauth2Client.setCredentials({
   refresh_token: process.env.refreshToken
 });
 const accessToken = oauth2Client.getAccessToken()
+
 
 const smtpTransport = nodemailer.createTransport({
   service: "gmail",
@@ -37,17 +35,19 @@ const smtpTransport = nodemailer.createTransport({
   }
 });
 
-
 const sendEmail = async (name, batch, email) => {
-  name=formatNames(name);
-  let files = fs.readdirSync("./views");
+
+  name=Utilities.formatNames(name);
+  //randomly selecting a template
+  let files = fs.readdirSync("./emailTemplates");
   let randomNumber = Math.floor(Math.random() * files.length + 1);
   console.log(randomNumber);
   const data = await ejs.renderFile(
-    require("path").resolve(__dirname, "../views") +
+    require("path").resolve(__dirname, "../emailTemplates") +
       `/template${randomNumber}.ejs`,
     { name: name, batch: batch }
   );
+  //sending the email
   await smtpTransport
     .sendMail({
       from: '"alumni" nodemail.112@gmail.com',
@@ -62,17 +62,5 @@ const sendEmail = async (name, batch, email) => {
       console.log(err);
     });
 };
-
-
-const formatNames=(name)=>{
-  const nameComp=name.split(" ");
-  let str="";
-  nameComp.forEach(comp=>{
-    comp=comp.toLowerCase();
-    str+=comp.charAt(0).toUpperCase()+comp.slice(1);
-    str+=" "
-  })
-  return str;
-}
 
 module.exports = sendEmail;

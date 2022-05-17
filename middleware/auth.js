@@ -1,12 +1,11 @@
 const jwt=require('jsonwebtoken');
-
 module.exports=async function(req,res,next){
 
     const token=req.cookies.jwt;
 
     if(!token){
         if(req.path=="/main"){
-            return res.status(403).render('../client/forbidden.ejs');
+            return res.status(403).redirect('forbidden');
         }
         return  res.json({msg:"-1"});
     }
