@@ -42,10 +42,10 @@ module.exports=class Utilities{
         console.log("FETCHING LIST...");
         this.sleep(1000);
         list.forEach(x=>{
-            console.log("\n");
             console.log("NAME --> "+x["Student Name"]);
             console.log("BRANCH --> "+x["Branch"]);
             console.log("EMAIL --> "+x["Email Id"]);
+            console.log("\n");
         })
         console.log("\n");
     }
