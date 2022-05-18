@@ -55,7 +55,8 @@ const sendEmail = async (name, batch, email) => {
       html: data,
     })
     .then((info) => {
-      console.log("message ID: "+info.messageId);
+      console.log("sending mail to: "+name);
+      console.log("message ID: "+info.messageId+"\n");
     })
     .catch((err) => {
       console.log(err);
