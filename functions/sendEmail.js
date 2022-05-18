@@ -41,7 +41,6 @@ const sendEmail = async (name, batch, email) => {
   //randomly selecting a template
   let files = fs.readdirSync("./emailTemplates");
   let randomNumber = Math.floor(Math.random() * files.length + 1);
-  console.log(randomNumber);
   const data = await ejs.renderFile(
     require("path").resolve(__dirname, "../emailTemplates") +
       `/template${randomNumber}.ejs`,
@@ -56,7 +55,7 @@ const sendEmail = async (name, batch, email) => {
       html: data,
     })
     .then((info) => {
-      console.log(info.messageId);
+      console.log("message ID: "+info.messageId);
     })
     .catch((err) => {
       console.log(err);

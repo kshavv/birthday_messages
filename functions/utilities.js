@@ -47,6 +47,7 @@ module.exports=class Utilities{
             console.log("BRANCH --> "+x["Branch"]);
             console.log("EMAIL --> "+x["Email Id"]);
         })
+        console.log("\n");
     }
 
     static alumniCount=()=>{
