@@ -3,7 +3,6 @@ const fs = require("fs");
 module.exports=class Utilities{
 
     static sleep=(ms)=> {
-        console.log("waiting...")
         return new Promise(resolve => setTimeout(resolve, ms));
     } 
     
@@ -38,6 +37,17 @@ module.exports=class Utilities{
           console.log("Successfully wrote file");
         });
     };
+
+    static printList=(list)=>{
+        console.log("FETCHING LIST...");
+        this.sleep(1000);
+        list.forEach(x=>{
+            console.log("\n");
+            console.log("NAME --> "+x["Student Name"]);
+            console.log("BRANCH --> "+x["Branch"]);
+            console.log("EMAIL --> "+x["Email Id"]);
+        })
+    }
 
     static alumniCount=()=>{
         const data = require("../data/jsonData/details.json");

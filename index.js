@@ -16,7 +16,7 @@ app.use(cookie());
 const job = schedule.scheduleJob("*/20 * * * * *", async function () {
   console.log("starting on schedule...");
   const list = getTodaysList();
-  console.log(list);  
+  Utilities.printList(list); 
   
   for(let i=0;i<list.length;i++){
     if (Utilities.isDataValid(list[i])) {
