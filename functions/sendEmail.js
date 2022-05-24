@@ -15,7 +15,7 @@ const oauth2Client = new OAuth2(
 
 
 oauth2Client.setCredentials({
-  refresh_token: process.env.refreshToken
+  refresh_token: process.env.mailRefreshToken
 });
 const accessToken = oauth2Client.getAccessToken()
 
@@ -27,7 +27,7 @@ const smtpTransport = nodemailer.createTransport({
        user: "nodemail.112@gmail.com", 
        clientId: process.env.clientId,
        clientSecret: process.env.clientSecret,
-       refreshToken: process.env.refreshToken,
+       refreshToken: process.env.mailRefreshToken,
        accessToken: accessToken
   },
   tls: {
