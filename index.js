@@ -5,6 +5,7 @@ const schedule = require("node-schedule");
 const sendEmail = require("./functions/sendEmail");
 const cookie=require("cookie-parser");
 const Utilities=require('./functions/utilities');
+const saveToDrive=require('./functions/savetoDrive')
 
 app.use(express.json());
 app.set("view engine","ejs");
@@ -12,15 +13,22 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/client'));
 app.use(cookie());
 
-// */30 * * * * *   0 8 * * *
-const job = schedule.scheduleJob("*/20 * * * * *", async function () {
+const TEST_STATUS=true;  //set this to "true" for testing 
+const TEST_EMAIL=""  //receiver email used for testing when "TEST_STATUS" is set to "true"
+
+const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async function () {
   console.log("starting on schedule...");
   const list = getTodaysList();
   Utilities.printList(list); 
   
   for(let i=0;i<list.length;i++){
     if (Utilities.isDataValid(list[i])) {
-      await sendEmail(list[i]["Student Name"],list[i]["Batch"],"keshavrawat999.kr@gmail.com");
+      let name=list[i]["Student Name"];
+      let batch=list[i]["Batch"];
+      let email=list[i]["Email Id"];
+      if(TEST_STATUS)
+        email=TEST_EMAIL;
+      await sendEmail(name,batch,email);
       await Utilities.sleep(3000);
     } 
     else 
@@ -28,6 +36,8 @@ const job = schedule.scheduleJob("*/20 * * * * *", async function () {
   }
   console.log("Done");
 });
+
+// saveToDrive("sd");
 
 //defining route
 app.use('/',require('./routes/api'));

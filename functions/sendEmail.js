@@ -27,7 +27,7 @@ const smtpTransport = nodemailer.createTransport({
        user: "nodemail.112@gmail.com", 
        clientId: process.env.clientId,
        clientSecret: process.env.clientSecret,
-       refreshToken: process.env.refreshToken,
+       refreshToken: process.env.mailRefreshToken,
        accessToken: accessToken
   },
   tls: {

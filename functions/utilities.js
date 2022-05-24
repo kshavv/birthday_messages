@@ -56,5 +56,11 @@ module.exports=class Utilities{
         delete require.cache[require.resolve('../data/jsonData/details.json')];
         return count;
     }
+
+    static cronTiming=(test_status)=>{
+        if(test_status)
+            return "*/20 * * * * *";
+        return "0 8 * * * ";
+    }
 }
 

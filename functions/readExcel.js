@@ -1,5 +1,4 @@
 const reader = require("xlsx");
-const data = require("../data/jsonData/details.json");
 const Utilities=require('../functions/utilities')
 
 
