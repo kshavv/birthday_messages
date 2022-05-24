@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/client'));
 app.use(cookie());
 
 const TEST_STATUS=true;  //set this to "true" for testing 
-const TEST_EMAIL=""  //receiver email used for testing when "TEST_STATUS" is set to "true"
+const TEST_EMAIL="YOUR_TEST_EMAIL_HERE"  //receiver email used for testing when "TEST_STATUS" is set to "true"
 
 const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async function () {
   console.log("starting on schedule...");

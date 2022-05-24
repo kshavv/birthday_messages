@@ -1,6 +1,30 @@
 [
-
-
+  {
+    "S. No": 1,
+    "GGSIP University Enrollment No": 6820903613,
+    "Branch": "MAE",
+    "Batch": "2013-2017",
+    "Student Name": "Abhijeet yadav",
+    "Gender": "Male",
+    "Date of Birth": 35203,
+    "Email Id": "surajsandy009@gmail.com",
+    "Mobile No": 9582807588,
+    "Father's Name": "Yugal kishor yadav",
+    "Permanent Address": "Debediha-6,dhanusha,Nepal"
+  },
+  {
+    "S. No": 2,
+    "GGSIP University Enrollment No": 4820903613,
+    "Branch": "MAE",
+    "Batch": "2013-2017",
+    "Student Name": "Abhishek kumar verma",
+    "Gender": "Male",
+    "Date of Birth": 35125,
+    "Email Id": "abhishekkhatana109@gmail.com",
+    "Mobile No": 7838118538,
+    "Father's Name": "Ashok kumar verma",
+    "Permanent Address": "c-510/5A, gali no 24 ,bhajanpura delhi 110055"
+  },
   {
     "S. No": 3,
     "GGSIP University Enrollment No": 3020903613,
@@ -3945,7 +3969,7 @@
     "Semester": "2013-2017",
     "Student Name": "Aamir Salaam",
     "Gender": "Male",
-    "Date of Birth": 34312,
+    "Date of Birth": 35209,
     "Email Id": "aamirarthur@gmail.com",
     "Mobile No": 9868160944,
     "Father's Name": "Anwer Salaam",

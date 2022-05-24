@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04mIqF1rZ9KJmCgYIARAAGAQSNwF-L9Ir3HdgZN5r7sx7dkEz13QfHfgNtLjBz3D9LSzHCoSLMdeofQ9wYtI5MFCZP8hf2T_tdes'
+const REFRESH_TOKEN = ''
 
 
 const oauth2Client = new OAuth2(

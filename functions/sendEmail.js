@@ -15,7 +15,7 @@ const oauth2Client = new OAuth2(
 
 
 oauth2Client.setCredentials({
-  refresh_token: process.env.refreshToken
+  refresh_token: process.env.mailRefreshToken
 });
 const accessToken = oauth2Client.getAccessToken()
 
