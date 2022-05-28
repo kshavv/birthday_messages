@@ -24,7 +24,7 @@ if(UPLOAD_FILE)
 
 const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async function () {
   console.log("starting on schedule...");
-  const list = getTodaysList();
+  const list = await getTodaysList();
   Utilities.printList(list); 
   
   //updating the local log file from drive, before starting
