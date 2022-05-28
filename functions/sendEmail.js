@@ -4,7 +4,7 @@ const fs = require("fs");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const Utilities=require('../functions/utilities')
-const {uploadFile,updateFile}=require('./driveFunctions')
+const {uploadFile}=require('./driveFunctions')
 
 require("dotenv").config();
 
@@ -63,7 +63,7 @@ const sendEmail = async (name, batch, email,dob) => {
       console.log(err);
     });
   const logEntry=Utilities.getLogForMail(name,batch,email,dob);
-  await updateFile(logEntry,'emailLogs.json');
+  await Utilities.addNewEntries(logEntry,'emailLogs.json')
   await uploadFile('emailLogs.json');
 };
 

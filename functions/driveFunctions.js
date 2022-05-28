@@ -62,40 +62,31 @@ const uploadFile= async(filename)=> {
             console.log(filename+" updated on drive");
         }            
     }catch (error) {
-        //report the error message
         console.log(error.message);
     }
 } 
 
-const fetchDriveFile=async(fileId,dest)=>{
-    drive.files.get({fileId: fileId, alt: "media"}, {responseType: "stream"},
-    function(_err, res){
-        res.data
-        .on("end", () => {
-        })
-        .on("‘error’", err => {
-            console.log("‘Error’:", err);
-        })
-        .pipe(dest);
-    })
-    Utilities.sleep(2000);
-}
-
-const updateFile=async(logEntry,filename)=>{
+const fetchDriveFile=async(filename)=>{
     const filePath = path.join(__dirname, `../data/jsonData/${filename}`);
     const mime=Utilities.getMime(filename);
     const filePresent=await checkFileExists(filename,mime);
-
-    
     if(filePresent != -1){
-        //if file is already present on Drive. fetch the prev data 
-        //and append it with new data
+        // if file is present on the drive
         let fileId=filePresent.data.files[0].id;
-        let dest = fs.createWriteStream(filePath);
-        await fetchDriveFile(fileId,dest)
+        let dest =fs.createWriteStream(filePath);
+        drive.files.get({fileId: fileId, alt: "media"}, {responseType: "stream"},
+        function(_err, res){
+            res.data
+            .on("end", () => {
+            })
+            .on("‘error’", err => {
+                console.log("‘Error’:", err);
+            })
+            .pipe(dest);
+        })
+        await Utilities.sleep(2000);
     }
-
-    await Utilities.addNewEntries(logEntry,filename)
 }
 
-module.exports={uploadFile,updateFile};
+
+module.exports={uploadFile,fetchDriveFile};

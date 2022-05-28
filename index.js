@@ -6,6 +6,8 @@ const sendEmail = require("./functions/sendEmail");
 const cookie=require("cookie-parser");
 const Utilities=require('./functions/utilities');
 const readExcel=require('./functions/readExcel');
+const {fetchDriveFile}=require('./functions/driveFunctions')
+
 
 app.use(express.json());
 app.set("view engine","ejs");
@@ -25,6 +27,9 @@ const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async functi
   const list = getTodaysList();
   Utilities.printList(list); 
   
+  //updating the local log file from drive, before starting
+  await fetchDriveFile('emailLogs.json');
+
   for(let i=0;i<list.length;i++){
     let name=list[i]["Student Name"];
     let batch=list[i]["Batch"];

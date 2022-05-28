@@ -85,15 +85,15 @@ module.exports=class Utilities{
     }
     static addNewEntries=async(newEntry,filename)=>{
         const data = require(`../data/jsonData/${filename}`);
+     
         data.push(newEntry)
         let updatedData = JSON.stringify(data,null,2);
-
         fs.writeFile(`./data/jsonData/${filename}`, updatedData, (err) => {
-            // Error checking
             if (err) 
-                console.log(err);
+            console.log(err);
             console.log("Local file("+filename+") Updated");
-          });
+        });
+        
         delete require.cache[require.resolve(`../data/jsonData/${filename}`)];
     }
 }
