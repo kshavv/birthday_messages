@@ -1,7 +1,6 @@
 const reader = require("xlsx");
-const data = require("../data/jsonData/details.json");
 const Utilities=require('../functions/utilities')
-
+const {uploadFile}=require('./driveFunctions')
 
 const readExcel = async () => {
   const address=require("path").resolve(__dirname, "../data/book.xlsx");
@@ -15,7 +14,8 @@ const readExcel = async () => {
       data.push(res);
     });
   }
-  Utilities.saveToFile(data);
+  await Utilities.saveToFile(data,'details.json');
+  await uploadFile('details.json');
 };
 
 

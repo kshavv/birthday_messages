@@ -4,6 +4,8 @@ const fs = require("fs");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const Utilities=require('../functions/utilities')
+const {uploadFile}=require('./driveFunctions')
+
 require("dotenv").config();
 
 
@@ -18,7 +20,6 @@ oauth2Client.setCredentials({
   refresh_token: process.env.mailRefreshToken
 });
 const accessToken = oauth2Client.getAccessToken()
-
 
 const smtpTransport = nodemailer.createTransport({
   service: "gmail",
@@ -35,7 +36,7 @@ const smtpTransport = nodemailer.createTransport({
   }
 });
 
-const sendEmail = async (name, batch, email) => {
+const sendEmail = async (name, batch, email,dob) => {
 
   name=Utilities.formatNames(name);
   //randomly selecting a template
@@ -61,6 +62,9 @@ const sendEmail = async (name, batch, email) => {
     .catch((err) => {
       console.log(err);
     });
+  const logEntry=Utilities.getLogForMail(name,batch,email,dob);
+  await Utilities.addNewEntries(logEntry,'emailLogs.json')
+  await uploadFile('emailLogs.json');
 };
 
 module.exports = sendEmail;

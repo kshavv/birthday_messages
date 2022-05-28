@@ -1,0 +1,22 @@
+clientId="YOUR OAUTH CLIENT_ID HERE"
+clientSecret="YOUR OAUTH SECRET HERE"
+mailRefreshToken="YOUR REFRESH TOKEN FOR ACCESSING GMAIL"
+driveRefreshToken="YOUR REFRESH TOKEN FOR ACCESSING GMAIL"
+jwtSecret="ANY RANDOM STRING"  
+user="ADMIN USER ID OF YOUR CHOICE HERE"       
+userPass="PASSWORD OF YOUR CHOICE HERE"
+
+
+
+
+create a file named ".env" in the parent directory and copy the above data into that file then update the variables with correct data
+
+NOTE:
+- enter a random string as value in the jwtSecret variable(required for generating jwt tokens for authentication)
+  Eg : jwtSecret="tubelight"
+
+- to update the excel data you will need to login into the main page
+  for that "user" and user pass variables are required set the username and password of your choice here
+  Eg: the user="admin321"
+      and userPass="testing@321" 
+

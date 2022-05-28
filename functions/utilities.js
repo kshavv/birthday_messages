@@ -28,13 +28,13 @@ module.exports=class Utilities{
         return new Date((excelDate - (25567 + 2)) * 86400 * 1000);
     }
     
-    static saveToFile = async (data) => {
+    static saveToFile = async (data,filename) => {
         const dataString = JSON.stringify(data, null, 2);
-        fs.writeFile("./data/jsonData/details.json", dataString, (err) => {
+        fs.writeFile(`./data/jsonData/${filename}`, dataString, (err) => {
           if (err) {
-            console.log("Error writing file", err);
+            console.log("Error writing file "+filename, err);
           }
-          console.log("Successfully wrote file");
+          console.log("Successfully wrote file -> "+filename);
         });
     };
 
@@ -55,6 +55,46 @@ module.exports=class Utilities{
         let count=data.length;
         delete require.cache[require.resolve('../data/jsonData/details.json')];
         return count;
+    }
+
+    static cronTiming=(test_status)=>{
+        if(test_status)
+            return "*/20 * * * * *";
+        return "0 8 * * * ";
+    }
+
+    static getMime(filename){
+        const type=filename.split('.')[1];
+        if(type=="json")
+            return "application/json";
+        if(type=="txt")
+            return "text/plain"
+    }
+    static getLogForMail=(name,batch,email,dob)=>{
+        let d = new Date();
+        let timestamp = d.getTime();
+        let newLog={
+            "timestamp":timestamp,
+            "name":name,
+            "batch":batch,
+            "email":email,
+            "DOB":dob
+        };
+        return newLog;
+
+    }
+    static addNewEntries=async(newEntry,filename)=>{
+        const data = require(`../data/jsonData/${filename}`);
+     
+        data.push(newEntry)
+        let updatedData = JSON.stringify(data,null,2);
+        fs.writeFile(`./data/jsonData/${filename}`, updatedData, (err) => {
+            if (err) 
+            console.log(err);
+            console.log("Local file("+filename+") Updated");
+        });
+        
+        delete require.cache[require.resolve(`../data/jsonData/${filename}`)];
     }
 }
 
