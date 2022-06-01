@@ -59,7 +59,8 @@ const uploadFile= async(filename)=> {
                     body: fs.createReadStream(filePath),
                 }
             });
-            console.log(filename+" updated on drive");
+            console.log(filename+" updated on drive\n");
+            await Utilities.sleep(1000)
         }            
     }catch (error) {
         console.log(error.message);
@@ -78,14 +79,15 @@ const fetchDriveFile=async(filename)=>{
         function(_err, res){
             res.data
             .on("end", () => {
+
             })
             .on("‘error’", err => {
                 console.log("‘Error’:", err);
             })
             .pipe(dest);
         })
-        await Utilities.sleep(2000);
     }
+    await Utilities.sleep(2000);
 }
 
 

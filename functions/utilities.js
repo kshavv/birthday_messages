@@ -59,7 +59,7 @@ module.exports=class Utilities{
 
     static cronTiming=(test_status)=>{
         if(test_status)
-            return "*/20 * * * * *";
+            return "*/10 * * * * *";
         return "0 8 * * * ";
     }
 

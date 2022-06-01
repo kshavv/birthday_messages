@@ -8,7 +8,6 @@ const Utilities=require('./functions/utilities');
 const readExcel=require('./functions/readExcel');
 const {fetchDriveFile}=require('./functions/driveFunctions')
 
-
 app.use(express.json());
 app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
@@ -17,18 +16,21 @@ app.use(cookie());
 
 const UPLOAD_FILE=false;
 const TEST_STATUS=true;  //set this to "true" for testing 
-const TEST_EMAIL="ENTER TEST EMAIL HERE"  //receiver email used for testing when "TEST_STATUS" is set to "true"
+const TEST_EMAIL="keshavrawat999.kr@gmail.com"  //receiver email used for testing when "TEST_STATUS" is set to "true"
 
 if(UPLOAD_FILE)
   readExcel();
 
 const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async function () {
   console.log("starting on schedule...");
+  //fetching the details.json file
+  await fetchDriveFile('details.json')
   const list = await getTodaysList();
   Utilities.printList(list); 
   
   //updating the local log file from drive, before starting
   await fetchDriveFile('emailLogs.json');
+
 
   for(let i=0;i<list.length;i++){
     let name=list[i]["Student Name"];
@@ -40,7 +42,7 @@ const job = schedule.scheduleJob(Utilities.cronTiming(TEST_STATUS), async functi
       if(TEST_STATUS)
         email=TEST_EMAIL;
       await sendEmail(name,batch,email,dob);
-      await Utilities.sleep(3000);
+      await Utilities.sleep(1000);
     } 
     else{
       console.log("data is invalid\n")
