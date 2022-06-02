@@ -16,7 +16,7 @@ app.use(cookie());
 
 const UPLOAD_FILE=false;
 const TEST_STATUS=true;  //set this to "true" for testing 
-const TEST_EMAIL="keshavrawat999.kr@gmail.com"  //receiver email used for testing when "TEST_STATUS" is set to "true"
+const TEST_EMAIL="TEST_MAIL_HERE"  //receiver email used for testing when "TEST_STATUS" is set to "true"
 
 if(UPLOAD_FILE)
   readExcel();
